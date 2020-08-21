@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transation_id: 1
+  transation_date_time: 2020-08-21 19:12:47
+  customer_id: 1
+  product_id: 1
+  transation_type: MyString
+  quantity: 1
+  transation_id_parent: MyString
+
+two:
+  transation_id: 1
+  transation_date_time: 2020-08-21 19:12:47
+  customer_id: 1
+  product_id: 1
+  transation_type: MyString
+  quantity: 1
+  transation_id_parent: MyString
