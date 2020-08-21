@@ -1,4 +1,12 @@
 class User < ApplicationRecord
+  before_save :downcase_fields
+
+  validates :email, format:  { with: /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/}, presence: true, uniqueness: true
+
+  def downcase_fields
+    self.email = self.email.downcase
+    self.name = self.name.downcase
+  end
 
   def self.generate_user_id
     loop do
