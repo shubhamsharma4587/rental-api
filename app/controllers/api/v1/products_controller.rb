@@ -10,7 +10,7 @@ class Api::V1::ProductsController < ApplicationController
 
   # GET /products/1
   def show
-    render json: @product
+    render json: [@product], each_serializer: ProductSerializers
   end
 
   # POST /products
@@ -41,7 +41,7 @@ class Api::V1::ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.find_by_product_id(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -22,6 +22,12 @@ class Api::V1::TransationsController < ApplicationController
     @transation = Transation.new(transation.as_json)
 
     if @transation.save
+      quantity_booked = @transation.product.quantity_booked
+      if @transation.transation_type == "OUT"
+        @transation.product.update(quantity_booked: quantity_booked + @transation.quantity)
+      else
+        @transation.product.update(quantity_booked: quantity_booked - @transation.quantity)
+      end
       render json: [@transation], each_serializer: TransationSerializers, status: :created
     else
       render json: @transation.errors, status: :unprocessable_entity
