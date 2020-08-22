@@ -1,24 +1,47 @@
-# README
+##### Prerequisites
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The setups steps expect following tools installed on the system.
 
-Things you may want to cover:
+- Github
+- Ruby [2.4.9](https://github.com/organization/project-name/blob/master/.ruby-version#L1)
+- Rails [5.2.4](https://github.com/organization/project-name/blob/master/Gemfile#L12)
 
-* Ruby version
+##### 1. Check out the repository
 
-* System dependencies
+```bash
+git clone https://github.com/shubhamsharma4587/rental-api.git
+```
 
-* Configuration
+##### 2. Create database.yml file
 
-* Database creation
+Edit the database configuration as required such as database username, password
 
-* Database initialization
+```bash
+cp config/database.yml config/database.yml
+```
 
-* How to run the test suite
+##### 3. Create and setup the database
 
-* Services (job queues, cache servers, search engines, etc.)
+Run the following commands to create and setup the database.
 
-* Deployment instructions
+```ruby
+rails db:create
+rails db:migrate 
+```
 
-* ...
+##### 4. Remove Gemfile.lock if present and install bundle
+
+```ruby
+rm Gemfile.lock
+bundle install
+```
+
+##### 5. Start the Rails server
+
+You can start the rails server using the command given below.
+
+```ruby
+rails s -p 4000
+```
+
+And now you can visit the site with the URL http://localhost:4000
