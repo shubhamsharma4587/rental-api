@@ -3,9 +3,9 @@ class Api::V1::TransationsController < ApplicationController
 
   # GET /transations
   def index
-    @transations = Transation.all
+    @transations = Transation.all.order("transation_date_time desc")
 
-    render json: @transations
+    render json: @transations, each_serializer: TransationSerializers
   end
 
   # GET /transations/1
@@ -15,10 +15,14 @@ class Api::V1::TransationsController < ApplicationController
 
   # POST /transations
   def create
-    @transation = Transation.new(transation_params)
+    transation = transation_params
+    transation[:transation_id] = Transation.generate_transation_id
+    transation[:transation_date_time] = Time.now
+
+    @transation = Transation.new(transation.as_json)
 
     if @transation.save
-      render json: @transation, status: :created
+      render json: [@transation], each_serializer: TransationSerializers, status: :created
     else
       render json: @transation.errors, status: :unprocessable_entity
     end
@@ -39,13 +43,14 @@ class Api::V1::TransationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transation
-      @transation = Transation.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def transation_params
-      params.require(:transation).permit(:transation_id, :transation_date_time, :customer_id, :product_id, :transation_type, :quantity, :transation_id_parent)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transation
+    @transation = Transation.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def transation_params
+    params.require(:transation).permit(:transation_id, :transation_date_time, :customer_id, :product_id, :transation_type, :quantity, :transation_id_parent)
+  end
 end
