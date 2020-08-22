@@ -36,6 +36,13 @@ rm Gemfile.lock
 bundle install
 ```
 
+##### 5. Create a default user to access the application
+
+Just execute the below command it will create a user with `username: test@gmail.com` and `password: 123456`. You can use these credentials to Login into the system
+```ruby
+rake create_default_user:migrate
+```
+
 ##### 5. Start the Rails server
 
 You can start the rails server using the command given below.
